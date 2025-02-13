@@ -5,7 +5,7 @@
 <body>
 <h1>Code example</h1>
 <p>This example comes from <a href+"https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/#:~:text=F%20app_package%3D%3Capp_package%3E-,Python,-import%20os%0Aimport">Splunk AppInspect docs.</a>a</p>
-<code id="source">import os
+<pre id="source">import os
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 url = "https://appinspect.splunk.com/v1/app/validate"
@@ -23,12 +23,12 @@ response = requests.request("POST", url, data=payload, headers=headers)
 
 print(response.status_code)
 print(response.json())
-</code>
+</pre>
 <input targetLanguage="text" id="lang">
 <button onclick="callTranspiler()">Convert</button>
-<p id="result"></p>
-<code id="conversion">
-</code>
+<p id="resultPararaph"></p>
+<pre id="conversionCodeblock">
+</pre>
 <script>
 //    const target = Math.floor(Math.random() * 100) + 1;
 //    let numGuesses = 0;
