@@ -1,29 +1,52 @@
 <html>
 <head>
-    <title>Guess the Number</title>
+    <title>Transpile from Python</title>
 </head>
 <body>
-<h1>Guess the Number</h1>
-<p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
-<input type="number" id="guess">
-<button onclick="checkGuess()">Guess</button>
+<h1>Code example</h1>
+<p>This example comes from <a href+"https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/#:~:text=F%20app_package%3D%3Capp_package%3E-,Python,-import%20os%0Aimport">Splunk AppInspect docs.</a>a</p>
+<code id="source">import os
+import requests
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+url = "https://appinspect.splunk.com/v1/app/validate"
+file_path = "full_path_to_file"
+user_token="auth_token"
+app_name = os.path.basename(file_path)
+
+fields = (
+   ('app_package', (app_name, open(file_path, "rb"))),
+   ('included_tags', 'cloud'),
+)
+payload = MultipartEncoder(fields=fields)
+headers = {"Authorization": "bearer {}".format(user_token), "Content-Type": payload.content_type}
+response = requests.request("POST", url, data=payload, headers=headers)
+
+print(response.status_code)
+print(response.json())
+</code>
+<input targetLanguage="text" id="lang">
+<button onclick="callTranspiler()">Convert</button>
 <p id="result"></p>
+<code id="conversion">
+</code>
 <script>
-    const target = Math.floor(Math.random() * 100) + 1;
-    let numGuesses = 0;
+//    const target = Math.floor(Math.random() * 100) + 1;
+//    let numGuesses = 0;
 
-    function checkGuess() {
-        numGuesses += 1;
-        const guess = document.getElementById("guess").value;
+    function callTranspiler() {
+//        numGuesses += 1;
+        const targetLanguage = document.getElementById("guess").value;
         const resultParagraph = document.getElementById("result");
-
-        if (guess == target) {
-            resultParagraph.innerHTML = "You got it! It took you " + numGuesses + " guesses.";
-        } else if (guess < target) {
-            resultParagraph.innerHTML = "Your guess is too low. Try again.";
-        } else if (guess > target) {
-            resultParagraph.innerHTML = "Your guess is too high. Try again.";
-        }
+        const conversionCodeblock = document.getElementById("conversion");
+        resultParagraph.innerHTML = "This is a result.";
+        conversionCodeblock.innerHTML = "Hello World";
+//        if (guess == target) {
+//            resultParagraph.innerHTML = "You got it! It took you " + numGuesses + " guesses.";
+//        } else if (guess < target) {
+//            resultParagraph.innerHTML = "Your guess is too low. Try again.";
+//       } else if (guess > target) {
+//            resultParagraph.innerHTML = "Your guess is too high. Try again.";
+//        }
     }
 </script>
 </body>
