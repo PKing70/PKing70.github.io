@@ -1,37 +1,90 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <script type = "text/javascript" src="functions.js"></script>
-    <title>Transpile from Python</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        textarea, select, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-<h1>Code example</h1>
-<p>This example comes from <a href="https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/">Splunk AppInspect</a></p>
-<!-- <p><a href="https://www.youtube.com">Visit our homepage</a></p> -->
-<pre id="source">import os
-import requests
-from requests_toolbelt.multipart.encoder import MultipartEncoder
-url = "https://appinspect.splunk.com/v1/app/validate"
-file_path = "full_path_to_file"
-user_token="auth_token"
-app_name = os.path.basename(file_path)
 
-fields = (
-   ('app_package', (app_name, open(file_path, "rb"))),
-   ('included_tags', 'cloud'),
-)
-payload = MultipartEncoder(fields=fields)
-headers = {"Authorization": "bearer {}".format(user_token), "Content-Type": payload.content_type}
-response = requests.request("POST", url, data=payload, headers=headers)
+    <h2>Code Translator</h2>
 
-print(response.status_code)
-print(response.json())
-</pre>
-<input targetLanguage="text" id="lang" value="Enter a language"></input>
-<button onclick="callTranspiler()">Convert</button>
-<p id="result">result goes here</p>
-<pre id="conversion">
-    conversion goes here
-</pre>
+    <label for="fromLang">Translate from:</label>
+    <select id="fromLang">
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Java">Java</option>
+        <option value="C++">C++</option>
+    </select>
+
+    <label for="toLang">Translate to:</label>
+    <select id="toLang">
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="Java">Java</option>
+        <option value="C++">C++</option>
+    </select>
+
+    <textarea id="inputCode" rows="6" placeholder="Enter your code here..."></textarea>
+
+    <button onclick="translateCode()">Translate</button>
+
+    <h3>Translated Code:</h3>
+    <pre id="outputCode"></pre>
+
+    <script>
+        async function translateCode() {
+            const inputCode = document.getElementById("inputCode").value;
+            const fromLang = document.getElementById("fromLang").value;
+            const toLang = document.getElementById("toLang").value;
+
+            if (!inputCode.trim()) {
+                alert("Please enter code to translate!");
+                return;
+            }
+
+            const response = await fetch("/.netlify/functions/translate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ inputCode, fromLang, toLang }),
+            });
+
+            const data = await response.json();
+
+            if (data.choices) {
+                document.getElementById("outputCode").textContent = data.choices[0].text.trim();
+            } else {
+                document.getElementById("outputCode").textContent = "Error: " + (data.error || "Translation failed.");
+            }
+        }
+    </script>
 
 </body>
 </html>
