@@ -5,6 +5,7 @@
 <body>
 <h1>Code example</h1>
 <p>This example comes from <a href+"https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/#:~:text=F%20app_package%3D%3Capp_package%3E-,Python,-import%20os%0Aimport">Splunk AppInspect docs.</a></p>
+<p><a href="https://www.homepage.com>Visit our homepage</a></p>
 <pre id="source">import os
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -24,7 +25,7 @@ response = requests.request("POST", url, data=payload, headers=headers)
 print(response.status_code)
 print(response.json())
 </pre>
-<input targetLanguage="text" id="lang"> value="Enter a language"</input>
+<input targetLanguage="text" id="lang" value="Enter a language"></input>
 <button onclick="callTranspiler()">Convert</button>
 <p id="result">result goes here</p>
 <pre id="conversion">
