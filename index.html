@@ -24,7 +24,7 @@ response = requests.request("POST", url, data=payload, headers=headers)
 print(response.status_code)
 print(response.json())
 </pre>
-<input targetLanguage="text" id="lang"></input>
+<input targetLanguage="text" id="lang"> value="Enter a language"</input>
 <button onclick="callTranspiler()">Convert</button>
 <p id="result">result goes here</p>
 <pre id="conversion">
@@ -40,8 +40,8 @@ print(response.json())
         const resultParagraph = document.getElementById("result");
         const conversionCodeblock = document.getElementById("conversion");
 //
-        resultParagraph.innerHTML = "You got it! It took you ";
-        conversionCodeblock.innerHTML = "Hello World";
+        resultParagraph.innerHTML = "Your target language is " + targetLanguage;
+        conversionCodeblock.innerHTML = "Hello World, written in " + targetLanguage;
 
 //        if (guess == target) {
 //            resultParagraph.innerHTML = "You got it! It took you " + numGuesses + " guesses.";
