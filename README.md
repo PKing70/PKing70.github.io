@@ -1,2 +1,2 @@
 # PKing70.github.io
-My GitHub pages
+GitHub page to try code transpilation with OpenAI API
