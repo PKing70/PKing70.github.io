@@ -24,11 +24,11 @@ response = requests.request("POST", url, data=payload, headers=headers)
 print(response.status_code)
 print(response.json())
 </pre>
-<input targetLanguage="text" id="lang">Enter language</input>
+<input targetLanguage="text" id="lang"></input>
 <button onclick="callTranspiler()">Convert</button>
 <p id="result">result goes here</p>
 <pre id="conversion">
-    convesion goes here
+    conversion goes here
 </pre>
 <script>
 //    const target = Math.floor(Math.random() * 100) + 1;
@@ -36,11 +36,13 @@ print(response.json())
 
     function callTranspiler() {
 //        numGuesses += 1;
-        const targetLanguage = document.getElementById("guess").value;
+        const targetLanguage = document.getElementById("lang").value;
         const resultParagraph = document.getElementById("result");
         const conversionCodeblock = document.getElementById("conversion");
-        resultParagraph.innerHTML = "This is a result.";
-        conversionParagraph.innerHTML = "Hello World";
+//
+        resultParagraph.innerHTML = "You got it! It took you ";
+        conversionCodeblock.innerHTML = "Hello World";
+
 //        if (guess == target) {
 //            resultParagraph.innerHTML = "You got it! It took you " + numGuesses + " guesses.";
 //        } else if (guess < target) {
