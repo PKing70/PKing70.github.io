@@ -4,7 +4,7 @@
 </head>
 <body>
 <h1>Code example</h1>
-<p>This example comes from <a href+"https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/#:~:text=F%20app_package%3D%3Capp_package%3E-,Python,-import%20os%0Aimport">Splunk AppInspect docs.</a>a</p>
+<p>This example comes from <a href+"https://dev.splunk.com/enterprise/reference/appinspect/appinspectapiepref/#:~:text=F%20app_package%3D%3Capp_package%3E-,Python,-import%20os%0Aimport">Splunk AppInspect docs.</a></p>
 <pre id="source">import os
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -24,10 +24,10 @@ response = requests.request("POST", url, data=payload, headers=headers)
 print(response.status_code)
 print(response.json())
 </pre>
-<input targetLanguage="text" id="lang">
+<input targetLanguage="text" id="lang">Enter language</input>
 <button onclick="callTranspiler()">Convert</button>
-<p id="resultPararaph"></p>
-<pre id="conversionCodeblock">
+<p id="result"></p>
+<pre id="conversion">
 </pre>
 <script>
 //    const target = Math.floor(Math.random() * 100) + 1;
@@ -39,7 +39,7 @@ print(response.json())
         const resultParagraph = document.getElementById("result");
         const conversionCodeblock = document.getElementById("conversion");
         resultParagraph.innerHTML = "This is a result.";
-        conversionCodeblock.innerHTML = "Hello World";
+        conversionParagraph.innerHTML = "Hello World";
 //        if (guess == target) {
 //            resultParagraph.innerHTML = "You got it! It took you " + numGuesses + " guesses.";
 //        } else if (guess < target) {
