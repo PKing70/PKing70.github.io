@@ -20,21 +20,24 @@ exports.handler = async (event) => {
             },
             body: JSON.stringify({
                 model: "gpt-4",
-                prompt: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}`,
+                messages: [
+                    { role: "system", content: "You are a code translator that converts code from one programming language to another." },
+                    { role: "user", content: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}` }
+                ],
                 max_tokens: 1000,
             }),
         });
 
         const data = await response.json();
-        console.log("OpenAI API response:", data); // Log API response
+        console.log("OpenAI API response:", JSON.stringify(data, null, 2)); // Log full response
 
-        if (!data.choices) {
+        if (!data.choices || !data.choices.length) {
             throw new Error("No translation returned from OpenAI.");
         }
 
         return {
             statusCode: 200,
-            body: JSON.stringify(data),
+            body: JSON.stringify({ translation: data.choices[0].message.content }),
         };
     } catch (error) {
         console.error("Error:", error); // Log error details
