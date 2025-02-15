@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
         console.log("Calling OpenAI API..."); // Log before API call
 
-        const response = await fetch("https://api.openai.com/v1/completions", {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -20,7 +20,10 @@ exports.handler = async (event) => {
             },
             body: JSON.stringify({
                 model: "gpt-4",
-                prompt: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}`,
+                messages: [
+                  { role: "system", content: "You are a code translator that converts code from one programming language to another." },
+                  { role: "user", content: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}` }
+                ],
                 max_tokens: 1000,
             }),
         });
