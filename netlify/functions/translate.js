@@ -20,10 +20,7 @@ exports.handler = async (event) => {
             },
             body: JSON.stringify({
                 model: "gpt-4",
-                messages: [
-                    { role: "system", content: "You are a code translator that converts code from one programming language to another." },
-                    { role: "user", content: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}` }
-                ],
+                prompt: `Translate the following ${fromLang} code to ${toLang}:\n\n${inputCode}`,
                 max_tokens: 1000,
             }),
         });
